@@ -5,7 +5,8 @@ require('dotenv').config();
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: '.',
+  testMatch: ['**/*.spec.js'],
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,

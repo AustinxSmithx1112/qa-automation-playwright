@@ -1,18 +1,17 @@
-// playwright.config.js
-// Config for Practice Software Testing site
 require('dotenv').config();
 
-const { defineConfig } = require('@playwright/test');
+const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
   testDir: '.',
-  testMatch: ['**/*.spec.js'],
   timeout: 30 * 1000,
+
   expect: {
     timeout: 5000,
   },
+
   use: {
-    baseURL: 'https://practicesoftwaretesting.com',
+    baseURL: 'https://calendly.com',
     headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
@@ -20,5 +19,25 @@ module.exports = defineConfig({
     screenshot: 'only-on-failure',
     testIdAttribute: 'data-test',
   },
+
+  projects: [
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
+
+    {
+      name: 'chromium',
+      testMatch: /.*\.spec\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: '.auth/calendly-customer.json',
+      },
+    },
+  ],
+
   reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
 });

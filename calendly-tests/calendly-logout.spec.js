@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('testing logging out after logging in', async ({ page }) => {
   await page.goto('https://calendly.com/login');
   await page.getByRole('textbox', { name: 'Email' }).click();
   await page.getByRole('textbox', { name: 'Email' }).fill(process.env.CALENDLY_01_USERNAME);
